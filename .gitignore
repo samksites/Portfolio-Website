@@ -2,3 +2,4 @@
 /express/node_modules
 *.json
 /env
+/react_web/node_modules
