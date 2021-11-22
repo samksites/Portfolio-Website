@@ -1,11 +1,13 @@
 /**
- * Packages: Express, Cors
+ * Packages: Express, Cors, bcrypt
  * 
  */
 
+const temp = require("./sql-connections")
+
  const express = require('express');
  const cors = require('cors');
-
+ const bcrypt = require('bcrypt');
  
  
  const app = express();
@@ -18,20 +20,42 @@
  const port = 3000;
  
  app.get('/tick', (request, response) => {
-     i += 1
+     i += 1;
+     console.log("2");
      
      response.send({number: i});
  });
+
+
 
  app.delete('/dleate', (request, response) => {
     i = 0;
     response.send({number: i});
 });
 
-app.post('/jump', (request,response) => {
-    i = request.body.number;
-    console.log(request.body.number);
-    response.send({number: i});
+/**
+ * Function to pass in new user infromation.
+ * Password is hashed and sent to be stored in the datbase
+ */
+
+app.post('/new-user', async (request,response) => {
+    try{
+
+        console.log(request.body.user);
+        // generates salt to add to hashed password
+        const salty = await bcrypt.genSalt();
+        // hashes the password
+        const hashedPassword = await bcrypt.hash(request.body.password,salty);
+        
+        var info = {"user": request.body.user , "pas": hashedPassword}
+        // if the function returns true the user name and password was accepted.
+        temp.insert(0, info);
+            
+        
+    }catch(e){
+        console.log(e);
+    }
+
 });
 
 
