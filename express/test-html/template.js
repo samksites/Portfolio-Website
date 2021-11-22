@@ -12,6 +12,7 @@ tickButton.addEventListener('click', () => {
     });
 });
 
+
 clear.addEventListener('click', () => {
     
     const options = {
