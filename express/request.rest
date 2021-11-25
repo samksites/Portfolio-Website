@@ -1,0 +1,13 @@
+GET http://localhost:3000/tick
+
+###
+
+POST http://localhost:3000/new-user
+Content-Type: application/json
+
+{
+    "user": "Sam",
+    "password": "1234"
+}
+
+
