@@ -17,8 +17,11 @@
  
  const port = 3000;
  
- app.get('/tick', (request, response) => {
-     i += 1
+ app.get('/account_value', (request, response) => {
+       var user = request.body.autenticate[0];
+
+       var pas = request.body.autenticate[1];
+
      
      response.send({number: i});
  });
