@@ -1,22 +1,26 @@
 const {MongoClient} = require('mongodb');
-
+const bcrypt = require('bcrypt');
 /**
  * Connection to mongo database
  */
 
-const uri = "mongodb://localhost"
+const config = require('./databaseLink.json')
+const uri = config.dbLink;
 
-const client = new MongoClient(uri);
+
 
 /**
  * Utility function used to return what datbase is wanted
  * 
- * @param {int} data short for database defines which datbase should be selected
- * @returns a connection to the datbase that is requested
+ * @param {int} descion indicates which case statment should excute
+ * @param {JSON} userData data passed in about the users user name and password
+ * @returns {int} indicates what happend in the process. -1: Failure    0: correct excution    1: duplicate username or username not found   2: password not correct
  */
 
-module.exports = {insert:  async function connection(descion, us){
-    
+module.exports = {databaseCompare:  async function connection(descion, userData){
+
+    var returnInfo = -1;
+
     const client = new MongoClient(uri);
  
     try {
@@ -27,6 +31,10 @@ module.exports = {insert:  async function connection(descion, us){
         var database = null;
         var collect = null;
 
+        database = await client.db("User");
+        // obtains the correct collection
+        collect = await database.collection("user_info");
+
         /**
          * Switch statment for connecting to all the diffrent datbases
          */
@@ -34,29 +42,65 @@ module.exports = {insert:  async function connection(descion, us){
 
             // Case one check if the datbase allready has user name. If not pass in a new password
             case 0:
-                database = await client.db("User");
-                // obtains the correct collection
-                collect = await database.collection("user_info");
 
-                console.log(us.user);
-                // insert
-                if(0 == await collect.count({"user": us.user})){
-                    await collect.insertOne({"user": us.user, "password": us.pas});
-                    console.log("Inserted one user");
+                // if count is zero this indicates this username has not been added to the 
+                // datbase before.
+                if(0 == await collect.count({"user": userData.user})){
+
+                    // creates a salt to add to the front of a password to make dycription harder
+                    const salty = await bcrypt.genSalt();
+                    // hashes the password
+                    const hashedPassword = await bcrypt.hash(userData.password,salty);
+
+                    // inserts the new username and hased password into the datbase
+                    await collect.insertOne({"user": userData.user, "password": hashedPassword});
+
+                    // excution compleated no error
+                    returnInfo = 0;
+
                 }else{
-                    console.log("User allready in datbase")
+                    
+                    // excution compleated user found in datbase
+                    returnInfo = 1;
                 }
+            // This case is when the user is logging into their account
+            case 1:
+                // accesses the users username 
+                var query = {"user": userData.user};
+                // mongo db projection
+                var projection = {"user":1};
+                // returns array of usernames that match the sent user name
+                var values = await collect.find(query,projection).toArray();
+                
+                // checks to see if username is allready in the datbase
+                if( values.length != 0){
+                    // compares password sent to that in datbase
+                    if(await bcrypt.compare(userData.password,values[0].password)){
+                        // username and password matched
+                        returnInfo = 0;
+                        console.log("match");
+                    }else{
+                        // password does match that in the datbase
+                        returnInfo = 2;
+                    }
+                    
+                }else{
+                    // username not found
+                    returnInfo = 1;
+                } 
                 
         }
         
     // catch datbase erros
     } catch (e) {
+        // log the erro that occured  ######### need to output this to a file
         console.error(e);
 
     // clsoe connection if no connection can be made
     } finally {
         await client.close();
     }
+    return returnInfo;
 }
 
 }
