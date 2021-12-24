@@ -17,7 +17,11 @@ const mongoConnect = require("./sql-connections")
 
  let i = 0;
  
- const port = 2000;
+ const port = 3001;
+
+ app.get('/', (req, res) => {
+    res.send('Hello World!')
+  })
  
 
  app.get('/account_value', (request, response) => {
@@ -30,7 +34,7 @@ const mongoConnect = require("./sql-connections")
 
 
 
- app.delete('/dleate', (request, response) => {
+ app.get('/dleate', (request, response) => {
     i = 0;
     response.send({number: i});
 });
@@ -43,21 +47,24 @@ const mongoConnect = require("./sql-connections")
 
  app.post('/login', async (request,response) => {
     try{
-
+        
         var excutionResult = -1;
 
         const password = request.body.pass;
         
         var info = {"user": request.body.user, "password": request.body.password};
         // if the function returns true the user name and password was accepted.
-        excutionResult = mongoConnect.databaseCompare(1, info);
+        excutionResult = databaseCompare.databaseCompare(1, info);
             
         
     }catch(e){
         console.log(e);
+    }finally{
+        console.log("yo");
+        response.send("hello");
     }
 
-    response.send({result: excutionResult});
+    
 
 });
 
@@ -69,20 +76,22 @@ const mongoConnect = require("./sql-connections")
 
 app.post('/new-user', async (request,response) => {
 
+    
     var excutionResult = -1;
 
     try{
         
-        var info = {"user": request.body.user , "pas": request.body.password}
+        var info = {"user": "samks" , "password": "1234"}
         // if the function returns true the user name and password was accepted.
-        excutionResult = mongoConnect.userData(0, info);
+        excutionResult = await mongoConnect.connection(0, info);
+        // returns if the connection worked or not
+        response.send({"indicator":excutionResult});
+        
         
         
     }catch(e){
         console.log(e);
     }
-
-    response.send({result: excutionResult});
 
 });
 

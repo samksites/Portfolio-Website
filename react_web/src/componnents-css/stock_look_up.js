@@ -1,6 +1,7 @@
 import './css/Welcome.css';
 import './css/nav.css'
 import'./css/nav-bar.css'
+import {Nav} from './NavBar';
 import { BiSearchAlt } from 'react-icons/bi';
 import {useSelector, useDispatch} from 'react-redux';
 import {checkDow} from '../action';
@@ -27,7 +28,7 @@ function Stock() {
     // Begins the home page commponent. Holds the welcome box and component for nav boxes
     <div>
 
-      <Bar/>
+      <Nav/>
 
       <div id="center-page">
       
@@ -62,7 +63,7 @@ function SearchBar(){
 }
 
 
-export function Bar() {
+export function Bar(props) {
 
 
 return (

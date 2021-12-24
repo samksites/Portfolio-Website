@@ -1,7 +1,9 @@
 import {Action} from './action';
 
 const initialState = {
-    dow: 40
+    dow: 40,
+    // hash to tell datbase this is a actual user
+    login_hash: ""
 };
 
 function reducer(state = initialState, action){
