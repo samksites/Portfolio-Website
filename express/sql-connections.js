@@ -17,7 +17,7 @@ const uri = config.dbLink;
  * @returns {int} indicates what happend in the process. -1: Failure    0: correct excution    1: duplicate username or username not found   2: password not correct
  */
 
-module.exports = {databaseCompare:  async function connection(descion, userData){
+async function connection(descion, userData){
 
     var returnInfo = -1;
 
@@ -50,6 +50,9 @@ module.exports = {databaseCompare:  async function connection(descion, userData)
                     // creates a salt to add to the front of a password to make dycription harder
                     const salty = await bcrypt.genSalt();
                     // hashes the password
+
+                    console.log(salty);
+                    console.log(userData.password);
                     const hashedPassword = await bcrypt.hash(userData.password,salty);
 
                     // inserts the new username and hased password into the datbase
@@ -77,16 +80,16 @@ module.exports = {databaseCompare:  async function connection(descion, userData)
                     // compares password sent to that in datbase
                     if(await bcrypt.compare(userData.password,values[0].password)){
                         // username and password matched
-                        returnInfo = 0;
+                        returnInfo = 1;
                         console.log("match");
                     }else{
                         // password does match that in the datbase
-                        returnInfo = 2;
+                        returnInfo = -2;
                     }
                     
                 }else{
                     // username not found
-                    returnInfo = 1;
+                    returnInfo = -1;
                 } 
                 
         }
@@ -103,6 +106,6 @@ module.exports = {databaseCompare:  async function connection(descion, userData)
     return returnInfo;
 }
 
-}
 
 
+exports.connection = connection;

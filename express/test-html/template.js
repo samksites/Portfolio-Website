@@ -35,7 +35,7 @@ go.addEventListener('click', () => {
         },
         body: JSON.stringify({number: parseInt(numberBox.value)}),
     }
-    fetch("http://localhost:3000/jump", options)
+    fetch("http://localhost:3001/new-user", options)
     .then(checkForErrors)
     .then( response => response.json())
     .then(data => {

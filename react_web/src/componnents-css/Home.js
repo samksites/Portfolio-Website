@@ -1,6 +1,7 @@
 
 import './css/Welcome.css';
-import './css/nav.css'
+import './css/nav.css';
+import {temp} from './NavBar';
 import { Link } from 'react-router-dom';
 
 
@@ -12,10 +13,14 @@ function Home() {
 
     <div className="home">
 
+      
+
       {/* Header holds the welcome box which is an h1*/}
       <div id="header">
         <div className="gradient-border" id="box"> <h1>Welcome</h1> </div>
       </div>
+
+      
 
       {/* nav_buttons div is container boxes and NavButton components which allow users to move around */}
       <div className="nav_buttons">
@@ -25,7 +30,7 @@ function Home() {
         </Link>
         
       </div>
-
+      <temp/>
       {/* nav_buttons div is container boxes and NavButton components which allow users to move around */}
       <div className="nav_buttons">
         <NavButton descript={{describe:""}}/>
