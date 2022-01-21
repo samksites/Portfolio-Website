@@ -1,6 +1,6 @@
 import {Routes,Route } from 'react-router-dom'
-import Home from './componnents-css/Home'
-import Stock from './componnents-css/stock_look_up'
+import Home from './componnents/Home'
+import Stock from './componnents/stock_look_up'
 
 function App() {
     

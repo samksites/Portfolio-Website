@@ -1,11 +1,11 @@
+
 #center-page{
     display: flex;
     justify-content: center;
 }
-body{
-    margin: 0;
-    padding: 0;
-}
+
+
+
 
 .navFull{
     width: 100%;
@@ -16,7 +16,6 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    
 }
 
 #items{
@@ -27,10 +26,6 @@ body{
     background-color: lightblue;
 }
 
-#loginButton{
-
-    
-}
 
 .look{
     width: 30px;
@@ -47,7 +42,6 @@ body{
 
 
 #search{
-    
     width: 20%;
     height: 25px;
     margin-top: 40px;
