@@ -1,15 +1,11 @@
-import './css/Welcome.css';
-import './css/nav.css'
-import'./css/nav-bar.css'
+import '../css/Navigation.css'
+import'../css/nav-bar.css'
 import {Nav} from './NavBar';
-import { BiSearchAlt } from 'react-icons/bi';
 import {useSelector, useDispatch} from 'react-redux';
 import {checkDow} from '../action';
 
 
 
-// This is the home welcome age. THis is where everyone first comes when they are tyring to 
-// access this website
 function Stock() {
 
 
