@@ -49,19 +49,17 @@ const mongoConnect = require("./sql-connections")
     try{
         
         var excutionResult = -1;
-
-        const password = request.body.pass;
         
         var info = {"user": request.body.user, "password": request.body.password};
         // if the function returns true the user name and password was accepted.
-        excutionResult = databaseCompare.databaseCompare(1, info);
-            
+        excutionResult = await mongoConnect.connection(1, info);
+        console.log(info);
         
     }catch(e){
         console.log(e);
     }finally{
-        console.log("yo");
-        response.send("hello");
+        
+        response.send({"indicator":excutionResult});
     }
 
     

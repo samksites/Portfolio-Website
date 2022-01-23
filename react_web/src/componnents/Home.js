@@ -78,6 +78,8 @@ function Home(props) {
 
 export default Home;
 
+
+
 //___________________________________________________________
 // nav button on the bottom
 
@@ -111,28 +113,31 @@ export function HomePageNav(props) {
 
     const dispatch = useDispatch();
 
-    const moveOut = () => {dispatch(log(2));}
+    const moveOut = () => {
+      dispatch(log(2));
+      resetLogin();
+    }
 
     if(props.log.value > 0){
       loginScreen =  // Login pannel
       <div id={fadded}>
         <div className='flexdirection-1' id={moveLogin}>
-          <div class="flexbox-2">
+          <div className="flexbox-2">
             <button id='close' onClick={moveOut}>close</button>
           </div>
-          <div class="flexbox-1" id="login-height">
+          <div className="flexbox-1" id="login-height">
             <h3><BsFillPersonFill id="figure"/> Login</h3>
           </div>
-          <div class="form__group field" id="username-down">
-            <input type="input" class="form__field" placeholder="Name" name="name" id='name' required />
-            <label for="name" class="form__label">Username</label>
+          <div className="form__group field" id="username-down">
+            <input type="input" className="form__field" placeholder="Name" name="name" id='name' required />
+            <label htmlFor="name" className="form__label">Username</label>
           </div>
-          <div class="form__group field" id='down'>
-            <input type="password" class="form__field" placeholder="password" password="Pass" id='password' required />
-            <label for="password" class="form__label">Password</label>
+          <div className="form__group field" id='down'>
+            <input type="password" className="form__field" placeholder="password" password="Pass" id='password' required />
+            <label htmlFor="password" className="form__label">Password</label>
           </div>
           <div className='flexbox-1'>
-            <button id='loginButton'>Login</button>
+            <button id='loginButton' onClick={sendLogin}>Login</button>
           </div>
           <div className='flexbox-1' id='forgot'>
             <a href='.......'>Forgot password?</a>
@@ -145,6 +150,35 @@ export function HomePageNav(props) {
       loginScreen
     )
 
+  }
+
+  async function sendLogin(){
+    const userPas = {"user": document.getElementById("name").value, "password": document.getElementById("password").value};
+    
+    var returnValue = null;
+
+     const options  =  {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userPas),
+    }
+    await fetch("http://localhost:3001/login", options)
+    .then( response => response.json())
+    .then(data => {
+      returnValue  = data.indicator;
+    });
+    
+    console.log(returnValue);
+    
+  }
+
+
+  function resetLogin(){
+
+    document.getElementById("name").value = "";
+    document.getElementById("password").value = "";
 
   }
 
