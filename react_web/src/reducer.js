@@ -6,6 +6,8 @@ const initialState = {
     login_hash: "",
 
     login_page: 0,
+    
+    canLogIn: false,
 };
 
 function reducer(state = initialState, action){
