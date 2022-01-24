@@ -5,7 +5,7 @@ import '../css/general.css'
 import '../css/login.scss'
 import {FaLock, FaUnlock} from 'react-icons/fa';
 import {BsFillPersonFill} from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {log} from '../action';
 
@@ -51,10 +51,10 @@ function Home(props) {
         <div className="rainbow-border white-txt flexbox-1" id="welcome-box"> <h1>Welcome</h1> </div>
       </div>
 
-      
 
       {/* nav_buttons div is container boxes and NavButton components which allow users to move around */}
       <div className="home_nav_buttons">
+        
         <HomePageNav descript={{describe:"Personal info"}}/>
         <Link to="/Stock-Look-Up">
           <HomePageNav descript={{describe:"Stock lookup application"}}/>
@@ -107,8 +107,8 @@ export function HomePageNav(props) {
     var fadded = 'fadeBackground';
     var moveLogin = 'loginFormDown'
     if (props.log.value === 2){
-      var fadded = 'reverseBack';
-      var moveLogin = 'loginFormUp'
+       fadded = 'reverseBack';
+       moveLogin = 'loginFormUp'
     }
 
     const dispatch = useDispatch();
@@ -138,6 +138,9 @@ export function HomePageNav(props) {
           </div>
           <div className='flexbox-1'>
             <button id='loginButton' onClick={sendLogin}>Login</button>
+          </div>
+          <div className='flexbox-1' id='newUser'>
+            <a href='.......'>New user?</a>
           </div>
           <div className='flexbox-1' id='forgot'>
             <a href='.......'>Forgot password?</a>
