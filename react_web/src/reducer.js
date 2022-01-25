@@ -7,7 +7,7 @@ const initialState = {
 
     login_page: 0,
     
-    canLogIn: false,
+    canLogIn: true,
 };
 
 function reducer(state = initialState, action){
