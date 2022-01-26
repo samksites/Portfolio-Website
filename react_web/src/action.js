@@ -1,7 +1,7 @@
 export const Action = Object.freeze({
     CheckDow: 'CheckDow',
     loginPage: 'loginPage',
-
+    loginRequest: 'loginRequest',
 
 });
 
@@ -17,4 +17,12 @@ export function log(login){
         type: Action.loginPage,
         payload: login,
     };
+}
+
+export function logIn(loginResult){
+    return {
+        type: Action.loginRequest,
+        payload: loginResult,
+    };
+
 }

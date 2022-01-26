@@ -7,7 +7,7 @@ import {FaLock, FaUnlock} from 'react-icons/fa';
 import {BsFillPersonFill} from 'react-icons/bs';
 import { Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
-import {log} from '../action';
+import {log, logIn} from '../action';
 
 
 // This is the home welcome age. THis is where everyone first comes when they are tyring to 
@@ -20,23 +20,25 @@ function Home(props) {
 
     const login = useSelector(state => state.login_page);
 
+    
+
     var loginPage = <LoginScreen log={{value : login}}/>
 
   // Displays loged in or loged out lock symbols
   var lock;
-  if (0 == 0){
+  if (useSelector(state => state.canLogIn)){
     lock = 
-    <div className='rainbow-box' id='login-box' onClick={loginTime}>
-    <p className='lock-text' >Login</p>
-    <FaLock className='loginButton' size='1.5em'/>
-  </div>
+      <div className='rainbow-box' id='login-box'>
+        <p className='lock-text'>Login</p>
+        <FaUnlock className='loginButton' size='1.5em'/>
+      </div>
 
   } else{
     lock = 
-    <div className='rainbow-box' id='login-box'>
-      <p className='lock-text'>Login</p>
-      <FaUnlock className='loginButton' size='1.5em'/>
-    </div>
+      <div className='rainbow-box' id='login-box' onClick={loginTime}>
+        <p className='lock-text' >Login</p>
+        <FaLock className='loginButton' size='1.5em'/>
+      </div>
   }
 
 
@@ -118,6 +120,11 @@ export function HomePageNav(props) {
       resetLogin();
     }
 
+    const sendEr = () => {
+      dispatch(logIn(2));
+      dispatch(log(2));
+    }
+
     if(props.log.value > 0){
       loginScreen =  // Login pannel
       <div id={fadded}>
@@ -137,7 +144,7 @@ export function HomePageNav(props) {
             <label htmlFor="password" className="form__label">Password</label>
           </div>
           <div className='flexbox-1'>
-            <button id='loginButton' onClick={sendLogin}>Login</button>
+            <button id='loginButton' onClick={() => sendLogin(sendEr)}>Login</button>
           </div>
           <div className='flexbox-1' id='newUser'>
             <a href='.......'>New user?</a>
@@ -155,7 +162,7 @@ export function HomePageNav(props) {
 
   }
 
-  async function sendLogin(){
+  async function sendLogin(dis){
     const userPas = {"user": document.getElementById("name").value, "password": document.getElementById("password").value};
     
     var returnValue = null;
@@ -173,7 +180,10 @@ export function HomePageNav(props) {
       returnValue  = data.indicator;
     });
     
-    console.log(returnValue);
+    if(returnValue === 'found'){
+      dis();
+      console.log("Done");
+    }
     
   }
 
