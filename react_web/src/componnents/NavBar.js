@@ -1,5 +1,5 @@
 import '../css/nav-bar.css'
-import {BiBody, BiLogIn} from 'react-icons/bi'
+import {BiLogIn} from 'react-icons/bi'
 
 
 

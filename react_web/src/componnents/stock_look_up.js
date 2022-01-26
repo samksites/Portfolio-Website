@@ -4,8 +4,6 @@ import {Nav} from './NavBar';
 import {useSelector, useDispatch} from 'react-redux';
 import {checkDow} from '../action';
 
-
-
 function Stock() {
 
 
@@ -38,11 +36,6 @@ function Stock() {
     {sp}
     </div>
     
-    
-    
-    
-    
-    
   );
 }
 
@@ -57,7 +50,6 @@ function SearchBar(){
 
   );
 }
-
 
 export function Bar(props) {
 

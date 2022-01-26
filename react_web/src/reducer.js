@@ -18,10 +18,14 @@ function reducer(state = initialState, action){
                 dow: action.payload
             }
         case Action.loginPage:
-            console.log(action.payload)
             return{
                 ...state,
                 login_page: action.payload
+            }
+        case Action.loginRequest:
+            return{
+                ...state,
+                canLogIn: action.payload
             }
             default:
                 return state;

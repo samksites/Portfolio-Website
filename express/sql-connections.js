@@ -59,12 +59,12 @@ async function connection(descion, userData){
                     await collect.insertOne({"user": userData.user, "password": hashedPassword});
 
                     // excution compleated no error
-                    returnInfo = 0;
+                    returnInfo = 'addedUser';
 
                 }else{
                     
                     // excution compleated user found in datbase
-                    returnInfo = 1;
+                    returnInfo = 'allReadyIn';
                 }
             // This case is when the user is logging into their account
             case 1:
@@ -80,11 +80,10 @@ async function connection(descion, userData){
                     // compares password sent to that in datbase
                     if(await bcrypt.compare(userData.password,values[0].password)){
                         // username and password matched
-                        returnInfo = 1;
-                        console.log("match");
+                        returnInfo = 'found';
                     }else{
                         // password does match that in the datbase
-                        returnInfo = -2;
+                        returnInfo = 'passNotFound';
                     }
                     
                 }else{
