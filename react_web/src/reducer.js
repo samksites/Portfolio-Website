@@ -1,27 +1,25 @@
 import {Action} from './action';
 
 const initialState = {
-    dow: 40,
     // hash to tell datbase this is a actual user
     login_hash: "",
-
+    // For the login screen 0 = no login screen 1 = pull up login screen 2 = close screen
     login_page: 0,
     
+    // if the user is loged in or not allows users to acceses other items of the page
     canLogIn: false,
 };
 
+// reducer for changing state
 function reducer(state = initialState, action){
     switch (action.type) {
-        case Action.CheckDow:
-            return {
-                ...state,
-                dow: action.payload
-            }
+        // changes the state of what login page looks like
         case Action.loginPage:
             return{
                 ...state,
                 login_page: action.payload
             }
+        // loads if the users username and password was found. 
         case Action.loginRequest:
             return{
                 ...state,

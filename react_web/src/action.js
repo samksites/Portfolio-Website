@@ -1,17 +1,10 @@
 export const Action = Object.freeze({
-    CheckDow: 'CheckDow',
     loginPage: 'loginPage',
     loginRequest: 'loginRequest',
 
 });
 
-export function checkDow(dow){
-    return {
-        type: Action.CheckDow,
-        payload: dow,
-    };
-}
-
+// Creates action for the login form passed in what state the login form should be at
 export function log(login){
     return {
         type: Action.loginPage,
@@ -19,6 +12,7 @@ export function log(login){
     };
 }
 
+// passed in if the user submited correct username and password
 export function logIn(loginResult){
     return {
         type: Action.loginRequest,
