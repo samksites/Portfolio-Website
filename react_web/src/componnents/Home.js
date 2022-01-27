@@ -14,14 +14,16 @@ import {log, logIn} from '../action';
 // access this website
 function Home(props) {
 
+    // loads dispatch
     const dispatch = useDispatch();
 
+    // sets up function call to pull up the login page
     const loginTime = () => {dispatch(log(1));}
 
+    // pulls in the state of the login page
     const login = useSelector(state => state.login_page);
 
-    
-
+    // Gets the login screen components sends the value of what the login state should be
     var loginPage = <LoginScreen log={{value : login}}/>
 
   // Displays loged in or loged out lock symbols
@@ -40,9 +42,6 @@ function Home(props) {
         <FaLock className='loginButton' size='1.5em'/>
       </div>
   }
-
-
-
   return (
     // Begins the home page commponent. Holds the welcome box and component for nav boxes
 
@@ -69,7 +68,7 @@ function Home(props) {
         <HomePageNav descript={{describe:"Stock lookup"}}/>
       </div>
 
-
+      {/* Displays open or clsoe lock and the login page button*/}
       <div className="home_nav_buttons" id='lock-icon'>
         {lock}
       </div>
@@ -80,12 +79,11 @@ function Home(props) {
 
 export default Home;
 
-
-
-//___________________________________________________________
-// nav button on the bottom
-
-
+/**
+ * Used for navigation on Home page
+ * @param {JSON} props = {descript: Word description of each button} 
+ * @returns navigation buttons on the home page to other pages
+ */
 export function HomePageNav(props) {
 
   // description of each nav button
@@ -100,31 +98,42 @@ export function HomePageNav(props) {
     );
   }
 
-
-
+  /**
+   * Used to get the login form
+   * @param {JSON} props = {log: {value: What state the login page should be at}}
+   * @returns Login form component
+   */
   export function LoginScreen(props){
     
+    // temp div to be used if nothing is to be loaded
     var loginScreen = <div></div>;
 
+    // next two elements are class names for loading login form
     var fadded = 'fadeBackground';
     var moveLogin = 'loginFormDown'
+
+    // if tru login form dissapears
     if (props.log.value === 2){
        fadded = 'reverseBack';
        moveLogin = 'loginFormUp'
     }
 
+    // gets dispatch
     const dispatch = useDispatch();
 
+    // called when x button is click or submit
     const moveOut = () => {
       dispatch(log(2));
       resetLogin();
     }
 
+    // used when submit button is clicked
     const sendEr = () => {
       dispatch(logIn(2));
       dispatch(log(2));
     }
 
+    // if value greater then one load login form onto the page with two variations of form appearing or disapearing 
     if(props.log.value > 0){
       loginScreen =  // Login pannel
       <div id={fadded}>
@@ -162,11 +171,18 @@ export function HomePageNav(props) {
 
   }
 
+  /**
+   * 
+   * @param {function} dis is a function from LoginScreen called sendEr used to call the dispatch functions Login and Log
+   */
   async function sendLogin(dis){
+    // gets data the user inputed into the form
     const userPas = {"user": document.getElementById("name").value, "password": document.getElementById("password").value};
     
+    // creates temp variable
     var returnValue = null;
 
+    // calls web page api with a post call sends the users data off to see if its in the database
      const options  =  {
       method: 'POST',
       headers: {
@@ -180,14 +196,15 @@ export function HomePageNav(props) {
       returnValue  = data.indicator;
     });
     
+    // If found in datbase will accees the param passed into this function
     if(returnValue === 'found'){
       dis();
-      console.log("Done");
     }
-    
   }
 
-
+  /**
+   * Utility function used to remove the username and password from the login form
+   */
   function resetLogin(){
 
     document.getElementById("name").value = "";
