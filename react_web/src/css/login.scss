@@ -246,3 +246,36 @@ $endTran: 0.4;
   margin-top: 20px;
 }
 
+#invesiable{
+  height: 10px;
+
+}
+#wrong {
+  margin-top: 20px;
+  color: red;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: -30px;
+  animation: wrong 0.2s;
+}
+
+@keyframes wrong {
+  from {
+    color: rgba(255, 0, 0, 0);
+  }
+
+  to {
+    color: rgb(255, 0, 0);
+  }
+}
+
+#loginButton:active {
+  background: #58b4c0;
+  -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+     -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+          box-shadow: inset 0px 0px 5px #c1c1c1;
+   outline: none;
+}
+
+
+
