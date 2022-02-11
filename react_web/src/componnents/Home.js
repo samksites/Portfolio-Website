@@ -23,6 +23,12 @@ function Home(props) {
     // pulls in the state of the login page
     const login = useSelector(state => state.login_page);
 
+    var loginPage = <LoginScreen log={{value: login}}/>
+    
+    if(useSelector(state => state.canLogIn)){
+
+    }
+
     // Gets the login screen components sends the value of what the login state should be
     var loginPage = <LoginScreen log={{value: login}}/>
 
@@ -88,12 +94,19 @@ export function HomePageNav(props) {
 
   // description of each nav button
     const description = props.descript
+
+    var links = 
+      <div className="home">
+      {/* Navigation buttons  */}
+        <button className="rainbow-box in" type="button"> <h2>{description.describe}</h2></button>
+      </div>
+
     return (
 
       // home class name for structure
       <div className="home">
         {/* Navigation buttons  */}
-        <button className="rainbow-box" type="button"> <h2>{description.describe}</h2></button>
+        <button className="rainbow-box in" type="button"> <h2>{description.describe}</h2></button>
       </div>
     );
   }
@@ -176,9 +189,11 @@ export function HomePageNav(props) {
           <div>
 
           </div>
-          <div className='flexbox-1' id='newUser'>
-            <a href='.......'>New user?</a>
-          </div>
+          <Link to="/NewUser">
+            <div className='flexbox-1' id='newUser' onClick={moveOut}>
+              <a href='.......'>New user?</a>
+            </div>
+          </Link>
           <div className='flexbox-1' id='forgot'>
             <a href='.......'>Forgot password?</a>
           </div>

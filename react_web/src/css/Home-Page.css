@@ -115,12 +115,16 @@
 	}
 }
 
-
-
-
 @keyframes example {
   from {top: 500px;}
   to {top: 0px;}
 }
+
+.home{
+  position:relative;
+}
+
+
+
 
 

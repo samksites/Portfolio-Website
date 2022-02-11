@@ -30,6 +30,10 @@ h2{
     background: #1D1F20;
 }
 
+.centerText{
+    text-align: center;
+}
+
 .flexbox-1{
     display: flex;
     justify-content: center;
