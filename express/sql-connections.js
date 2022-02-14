@@ -17,7 +17,7 @@ const uri = config.dbLink;
  * @returns {int} indicates what happend in the process. -1: Failure    0: correct excution    1: duplicate username or username not found   2: password not correct
  */
 
-async function connection(descion, userData){
+async function connection(descion, userData, check){
 
     var returnInfo = -1;
 
@@ -77,13 +77,17 @@ async function connection(descion, userData){
                 
                 // checks to see if username is allready in the datbase
                 if( values.length != 0){
-                    // compares password sent to that in datbase
-                    if(await bcrypt.compare(userData.password,values[0].password)){
-                        // username and password matched
+                    // if we are just checking if the user Name is in the datbase
+                    if(check){
                         returnInfo = 'found';
-                    }else{
-                        // password does match that in the datbase
-                        returnInfo = 'passNotFound';
+                    } else{
+                        if(await bcrypt.compare(userData.password,values[0].password)){
+                            // username and password matched
+                            returnInfo = 'found';
+                        }else{
+                            // password does match that in the datbase
+                            returnInfo = 'passNotFound';
+                        }
                     }
                     
                 }else{

@@ -18,13 +18,19 @@ function Home(props) {
     const dispatch = useDispatch();
 
     // sets up function call to pull up the login page
-    const loginTime = () => {dispatch(log(1));}
+    const loginTime = () => {dispatch(log({loginError:false, loginState:1}));}
 
     // pulls in the state of the login page
     const login = useSelector(state => state.login_page);
 
+    var loginPage = <LoginScreen log={{value: login}}/>
+    
+    if(useSelector(state => state.canLogIn)){
+
+    }
+
     // Gets the login screen components sends the value of what the login state should be
-    var loginPage = <LoginScreen log={{value : login}}/>
+    var loginPage = <LoginScreen log={{value: login}}/>
 
   // Displays loged in or loged out lock symbols
   var lock;
@@ -88,12 +94,19 @@ export function HomePageNav(props) {
 
   // description of each nav button
     const description = props.descript
+
+    var links = 
+      <div className="home">
+      {/* Navigation buttons  */}
+        <button className="rainbow-box in" type="button"> <h2>{description.describe}</h2></button>
+      </div>
+
     return (
 
       // home class name for structure
       <div className="home">
         {/* Navigation buttons  */}
-        <button className="rainbow-box" type="button"> <h2>{description.describe}</h2></button>
+        <button className="rainbow-box in" type="button"> <h2>{description.describe}</h2></button>
       </div>
     );
   }
@@ -113,28 +126,45 @@ export function HomePageNav(props) {
     var moveLogin = 'loginFormDown'
 
     // if tru login form dissapears
-    if (props.log.value === 2){
+    if (props.log.value.loginState === 2){
        fadded = 'reverseBack';
        moveLogin = 'loginFormUp'
     }
-
+    // function to wait a certin amount of time
+    const delay = ms => new Promise(res => setTimeout(res, ms));
     // gets dispatch
     const dispatch = useDispatch();
 
     // called when x button is click or submit
-    const moveOut = () => {
-      dispatch(log(2));
+    const moveOut = async () => {
+      dispatch(log({loginError:false, loginState:2}));
       resetLogin();
+      await delay(300);
+      dispatch(log({loginError:false, loginState:0}));
     }
 
     // used when submit button is clicked
     const sendEr = () => {
       dispatch(logIn(2));
-      dispatch(log(2));
+      dispatch(log({loginError:false, loginState:2}));
+    }
+
+    const notFound = () => {
+      dispatch(log({loginError:true, loginState:1}));
+    }
+    
+    var wrongPasOrUser = 
+    <div id='invesiable'>
+    </div>
+    if(props.log.value.loginError){
+        wrongPasOrUser = 
+        <div id='wrong'>
+          <text>Wrong password or user name pleas try agian</text>
+        </div>
     }
 
     // if value greater then one load login form onto the page with two variations of form appearing or disapearing 
-    if(props.log.value > 0){
+    if(props.log.value.loginState > 0){
       loginScreen =  // Login pannel
       <div id={fadded}>
         <div className='flexdirection-1' id={moveLogin}>
@@ -152,12 +182,18 @@ export function HomePageNav(props) {
             <input type="password" className="form__field" placeholder="password" password="Pass" id='password' required />
             <label htmlFor="password" className="form__label">Password</label>
           </div>
+          {wrongPasOrUser}
           <div className='flexbox-1'>
-            <button id='loginButton' onClick={() => sendLogin(sendEr)}>Login</button>
+            <button id='loginButton' onClick={() => sendLogin(sendEr,notFound)}>Login</button>
           </div>
-          <div className='flexbox-1' id='newUser'>
-            <a href='.......'>New user?</a>
+          <div>
+
           </div>
+          <Link to="/NewUser">
+            <div className='flexbox-1' id='newUser' onClick={moveOut}>
+              <a href='.......'>New user?</a>
+            </div>
+          </Link>
           <div className='flexbox-1' id='forgot'>
             <a href='.......'>Forgot password?</a>
           </div>
@@ -175,7 +211,7 @@ export function HomePageNav(props) {
    * 
    * @param {function} dis is a function from LoginScreen called sendEr used to call the dispatch functions Login and Log
    */
-  async function sendLogin(dis){
+  async function sendLogin(dis, tryAgian){
     // gets data the user inputed into the form
     const userPas = {"user": document.getElementById("name").value, "password": document.getElementById("password").value};
     
@@ -199,6 +235,8 @@ export function HomePageNav(props) {
     // If found in datbase will accees the param passed into this function
     if(returnValue === 'found'){
       dis();
+    } else{
+      tryAgian();
     }
   }
 

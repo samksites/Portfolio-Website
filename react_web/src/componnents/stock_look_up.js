@@ -2,18 +2,13 @@ import '../css/Navigation.css'
 import'../css/nav-bar.css'
 import {Nav} from './NavBar';
 import {useSelector, useDispatch} from 'react-redux';
-import {checkDow} from '../action';
+
 
 function Stock() {
 
 
   const hold = useSelector(state => state.dow);
   
-  const dispatch = useDispatch();
-
-  const onLoad = () => {dispatch(checkDow(100 + hold));}
-
-  const dow = <MarketData points={{value:hold}}/>
 
   const sp = <MarketData points={{value:hold}}/>
 
@@ -27,12 +22,11 @@ function Stock() {
       <div id="center-page">
       
       <SearchBar/>
-      <button onClick={onLoad}>Load</button>
-      
+     
       
     </div>
 
-    {dow}
+
     {sp}
     </div>
     

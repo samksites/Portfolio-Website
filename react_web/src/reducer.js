@@ -4,7 +4,7 @@ const initialState = {
     // hash to tell datbase this is a actual user
     login_hash: "",
     // For the login screen 0 = no login screen 1 = pull up login screen 2 = close screen
-    login_page: 0,
+    login_page: {loginError:false, loginState:0},
     
     // if the user is loged in or not allows users to acceses other items of the page
     canLogIn: false,
