@@ -4,6 +4,9 @@ import React from 'react';
 import {Form, Field} from 'react-final-form';
 import Collapsible from 'react-collapsible';
 
+
+var acceptable = false;
+
 const Input = ({errorMessage, ...props}) => (
     <div className='input-text flexbox-1 flexDirection'>
         <input {...props} className='inputBox'/>
@@ -20,12 +23,38 @@ const onSubmit = values => {
     alert(JSON.stringify(values));
 }
 
-const required = v => {
+
+
+const userNameFree = async v =>{
+
     if (!v || v === '') {
         return 'This field is required';
+    } else {
+    
+    var userPas = {user: v};
+    var returnValue ="";
+    const options  =  {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userPas),
+      }
+      await fetch("http://localhost:3001/lookForUser", options)
+      .then( response => response.json())
+      .then(data => {
+        returnValue  = data.indicator;
+      });
+
+      if(v === ''){
+          return undefined;
+      } else if(returnValue === 'found'){
+          return 'Username not avaliable'
+      }
+
     }
-    return undefined;
-};
+    
+}
 
 const allowedNames = v => {
     if (v === 'forbidden name') {
@@ -35,6 +64,14 @@ const allowedNames = v => {
     return undefined;
 };
 
+const required = v => {
+    if (!v || v === '') {
+        return 'This field is required';
+    }
+};
+
+
+
 const FinalForm = () => (
     <Form
         onSubmit={onSubmit}
@@ -43,8 +80,10 @@ const FinalForm = () => (
                 <div className='personalInfo'>
                     <h2>Final Form</h2>
                     <form className='forms' onSubmit={handleSubmit}>
-                        <Field name= "customer=1"  component={renderInput} validate={required}/>
-                        <Field name= "customer=2"  component={renderInput} validate={required}/>
+                        <InputFields Info ={{title: "Password",id: "customer=1", type: 0}}/>
+                        <InputFields Info ={{title: "Password",id: "customer=1", type: 1}}/>
+                        <InputFields Info ={{title: "Password",id: "customer=1", type: 2}}/>
+                        
                         <button type='submit' disabled={invalid}>Submit</button>
                     </form>
                 </div>
@@ -82,7 +121,50 @@ const Welcome = () => (
 
 );
 
+function InputFields(props){
 
+    const inputs = [<div className='formSpace'>
+                    <h3>{props.Info.info}</h3>
+                    <Field name= {props.Info.id}  component={renderInput} validate={userNameFree}/>
+                    </div>, <div className='formSpace'>
+            <h3>{props.Info.info}</h3>
+            <div className='flexbox-1'>
+            <label>
+                <Field
+                  name="stooge"
+                  component="input"
+                  type="radio"
+                  value="Male"
+                />{' '}
+                Male
+              </label>
+              <label>
+                <Field
+                  name="stooge"
+                  component="input"
+                  type="radio"
+                  value="Female"
+                />{' '}
+                Female
+              </label>
+              <label>
+                <Field
+                  name="stooge"
+                  component="input"
+                  type="radio"
+                  value="Other"
+                />{' '}
+                Other
+              </label>
+            </div>
+        
+           
+        </div>,0]
+
+    return(
+        inputs[props.Info.type]
+    )
+}
 
 
 
