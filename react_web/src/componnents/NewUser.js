@@ -7,6 +7,8 @@ import Collapsible from 'react-collapsible';
 
 var acceptable = false;
 
+var notEmpty = true;
+
 const Input = ({errorMessage, ...props}) => (
     <div className='input-text flexbox-1 flexDirection'>
         <input {...props} className='inputBox'/>
@@ -24,6 +26,13 @@ const onSubmit = values => {
 }
 
 
+const validateName = name =>{
+    if(!name || name === ''){
+        return 'Enter a name';
+    }
+
+    return undefined;
+}
 
 const userNameFree = async v =>{
 
@@ -56,20 +65,23 @@ const userNameFree = async v =>{
     
 }
 
-const allowedNames = v => {
-    if (v === 'forbidden name') {
-        return '"forbidden name" is not a valid customer id';
+const validateEmail = email => {
+    
+    var validate = /\S+@\S+\.\S+/;
+    if(validate.test(email)){
+        return "";
     }
     
-    return undefined;
-};
+    return "Invalid email"
+    
+  };
+
 
 const required = v => {
     if (!v || v === '') {
         return 'This field is required';
     }
 };
-
 
 
 const FinalForm = () => (
@@ -80,10 +92,9 @@ const FinalForm = () => (
                 <div className='personalInfo'>
                     <h2>Final Form</h2>
                     <form className='forms' onSubmit={handleSubmit}>
-                        <InputFields Info ={{title: "Password",id: "customer=1", type: 0}}/>
-                        <InputFields Info ={{title: "Password",id: "customer=1", type: 1}}/>
-                        <InputFields Info ={{title: "Password",id: "customer=1", type: 2}}/>
-                        
+                        <InputFields Info ={{title: "First Name",id: "inputField=1", type: 0}}/>
+                        <InputFields Info ={{title: "Email",id: "inputField=2", type: 2}}/>
+                        <InputFields Info ={{title: "User name",id: "inputField=3", type: 1}}/>
                         <button type='submit' disabled={invalid}>Submit</button>
                     </form>
                 </div>
@@ -91,15 +102,7 @@ const FinalForm = () => (
         )}
     />
 );
-
-const dissclamer = 
-            <div className='flexbox-1'>
-                <div className='flexbox-1 flexDirection' id='dissclamer'>
-                    <h3 className='centerText' id='dis'>**Dissclamer**    &darr;</h3>
-                </div>
-            </div>
                 
-
 
 const Welcome = () => (
 
@@ -116,17 +119,97 @@ const Welcome = () => (
             </div>
         </Collapsible>
         <FinalForm></FinalForm>
-        
     </div>
-
 );
+
+const dissclamer = 
+            <div className='flexbox-1'>
+                <div className='flexbox-1 flexDirection' id='dissclamer'>
+                    <h3 className='centerText' id='dis'>**Dissclamer**    &darr;</h3>
+                </div>
+            </div>
 
 function InputFields(props){
 
     const inputs = [<div className='formSpace'>
+                        <h3>{props.Info.title}</h3>
+                        <Field name= {props.Info.id}  component={renderInput} validate={validateName}/>
+                    </div>,
+                    <div className='formSpace'>
+                        <h3>{props.Info.title}</h3>
+                        <Field name= {props.Info.id}  component={renderInput} validate={userNameFree}/>
+                    </div>,
+                    <div className='formSpace'>
+                    <h3>{props.Info.title}</h3>
+                    <Field name= {props.Info.id} type='email'  component={renderInput} validate={validateEmail}/>
+                </div>
+                    ]
+
+    return(
+        inputs[props.Info.type]
+    )
+}
+
+
+
+
+
+
+
+function Join(){
+
+
+    return(
+        
+        <div className='flexbox-1' id='page'>
+            
+            <div id='background'>
+                <Welcome/>
+            </div>
+
+        </div>
+
+    );
+
+
+} export default Join;
+
+
+/**<div className='formSpace'>
                     <h3>{props.Info.info}</h3>
-                    <Field name= {props.Info.id}  component={renderInput} validate={userNameFree}/>
-                    </div>, <div className='formSpace'>
+                    <div className='flexbox-1'>
+                    <label>
+                        <Field
+                          name="stooge"
+                          component="input"
+                          type="radio"
+                          value="Male"
+                        />{' '}
+                        Male
+                      </label>
+                      <label>
+                        <Field
+                          name="stooge"
+                          component="input"
+                          type="radio"
+                          value="Female"
+                        />{' '}
+                        Female
+                      </label>
+                      <label>
+                        <Field
+                          name="stooge"
+                          component="input"
+                          type="radio"
+                          value="Other"
+                        />{' '}
+                        Other
+                      </label>
+                    </div>
+                
+                   
+                </div>,  
+                    <div className='formSpace'>
             <h3>{props.Info.info}</h3>
             <div className='flexbox-1'>
             <label>
@@ -159,29 +242,4 @@ function InputFields(props){
             </div>
         
            
-        </div>,0]
-
-    return(
-        inputs[props.Info.type]
-    )
-}
-
-
-
-function Join(){
-
-
-    return(
-        
-        <div className='flexbox-1' id='page'>
-            
-            <div id='background'>
-                <Welcome/>
-            </div>
-
-        </div>
-
-    );
-
-
-} export default Join;
+        </div> */
