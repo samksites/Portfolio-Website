@@ -76,11 +76,26 @@ const validateEmail = email => {
     
   };
 
-
-const required = v => {
-    if (!v || v === '') {
-        return 'This field is required';
-    }
+function RadioBoxes(props){
+    
+    const values = props.val;
+    
+    const listDivs = values.map((values) =>
+    <label>
+    <Field
+      name="stooge"
+      component="input"
+      type="radio"
+      value="Male"
+    />{' '}
+    {values.name}
+  </label>
+    )
+    
+  
+  return <div className='flexbox-1'>
+    {listDivs}
+  </div>;
 };
 
 
@@ -93,6 +108,7 @@ const FinalForm = () => (
                     <h2>Final Form</h2>
                     <form className='forms' onSubmit={handleSubmit}>
                         <InputFields Info ={{title: "First Name",id: "inputField=1", type: 0}}/>
+                        <RadioBoxes val = {[{name: "Male"},{name: "Female"},{name: "Other"}]}/>
                         <InputFields Info ={{title: "Email",id: "inputField=2", type: 2}}/>
                         <InputFields Info ={{title: "User name",id: "inputField=3", type: 1}}/>
                         <button type='submit' disabled={invalid}>Submit</button>
@@ -149,8 +165,6 @@ function InputFields(props){
         inputs[props.Info.type]
     )
 }
-
-
 
 
 
