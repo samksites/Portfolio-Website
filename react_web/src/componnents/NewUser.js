@@ -78,24 +78,30 @@ const validateEmail = email => {
 
 function RadioBoxes(props){
     
-    const values = props.val;
+    const values = props.val.list;
     
     const listDivs = values.map((values) =>
-    <label>
-    <Field
-      name="stooge"
-      component="input"
-      type="radio"
-      value="Male"
-    />{' '}
-    {values.name}
-  </label>
+    <div className='spread'>
+        <label>
+            <Field
+            name="temp"
+            component="input"
+            type="radio"
+            value={values.name}
+            />
+        {' '}
+        {values.name}
+        </label>
+    </div>
     )
     
   
-  return <div className='flexbox-1'>
-    {listDivs}
-  </div>;
+  return <div className='flexbox-1 flexDirection'>
+            <h3 className='radioLabel'>{props.val.title}</h3>
+            <div className='spread'>
+                {listDivs}
+            </div> 
+         </div>;
 };
 
 
@@ -108,7 +114,8 @@ const FinalForm = () => (
                     <h2>Final Form</h2>
                     <form className='forms' onSubmit={handleSubmit}>
                         <InputFields Info ={{title: "First Name",id: "inputField=1", type: 0}}/>
-                        <RadioBoxes val = {[{name: "Male"},{name: "Female"},{name: "Other"}]}/>
+                        <RadioBoxes val = {{list:[{name: "Male"},{name: "Female"},{name: "Other"}],title:"Enter your sex" }}/>
+                        <RadioBoxes val = {{list:[{name: "18-24"},{name: "25-36"},{name: "37-50"},{name: "50-70"}], title:"Enger your age"}}/>
                         <InputFields Info ={{title: "Email",id: "inputField=2", type: 2}}/>
                         <InputFields Info ={{title: "User name",id: "inputField=3", type: 1}}/>
                         <button type='submit' disabled={invalid}>Submit</button>

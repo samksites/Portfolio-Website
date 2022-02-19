@@ -1,12 +1,12 @@
 #page{
     width: 100vw;
-    height: 100vh;
+    
     justify-content: center;
     align-items: center;
 }
 
 #background{
-    height: 90vh;
+    margin: 20px 0px;
     width: 80vw;
     background-color: rgb(253, 249, 244);
     border-radius: 5px;
@@ -92,4 +92,14 @@
 .formSpace{
     height: 120px;
 
+}
+
+.spread{
+   display: flex;
+   justify-content: space-around;
+   margin: 20px 0px;
+}
+
+.radioLabel{
+    margin-bottom: -10px;
 }
