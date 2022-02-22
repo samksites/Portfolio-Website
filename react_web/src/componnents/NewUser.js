@@ -5,20 +5,21 @@ import {Form, Field} from 'react-final-form';
 import Collapsible from 'react-collapsible';
 
 
+var password = '';
 
 const Input = ({errorMessage, ...props}) => (
     <div className='input-text flexbox-1 flexDirection'>
-        <input {...props} type={props.hi} className='inputBox'/>
+        <input {...props} type={props.typ} className='inputBox'/>
         {errorMessage && <span className='errorMessage'>{errorMessage}</span>}
     </div>
 );
 
 const renderInput = ({input, meta}) => (
-    <Input {...input} hi={"text"}  errorMessage={meta.touched && meta.error}/>
+    <Input {...input} typ={"text"}  errorMessage={meta.touched && meta.error}/>
 );
 
 const renderPasswords = ({input, meta}) => (
-    <Input {...input} hi={"password"} errorMessage={meta.touched && meta.error}/>
+    <Input {...input} typ={"password"} errorMessage={meta.touched && meta.error}/>
 );
 
 
@@ -30,6 +31,26 @@ const onSubmit = values => {
 const validateName = name =>{
     if(!name || name === ''){
         return 'Enter a name';
+    }
+
+    return undefined;
+}
+
+const validateFirstPas = firstPassword =>{
+    var divHolder = <div></div>
+    password = firstPassword;
+    
+    
+
+    return undefined
+}
+
+
+
+
+const validateSecondPas = secondPassword =>{
+    if( !(secondPassword  === password)){
+        return "Passwords don't match";
     }
 
     return undefined;
@@ -72,9 +93,7 @@ const validateEmail = email => {
     if(validate.test(email)){
         return "";
     }
-    
     return "Invalid email"
-    
   };
 
 
@@ -93,7 +112,8 @@ const FinalForm = () => (
                         <InputFields Info ={{title: "Email",id: "inputField=2", type: 2}}/>
                         <InputFields Info ={{title: "User name",id: "inputField=3", type: 1}}/>
                         <InputFields Info ={{title: "Enter Password",id: "inputField=4", type: 3}}/>
-                        <InputFields Info ={{title: "Enter matching Password",id: "inputField=5", type: 3}}/>
+                        <CorrectPas pas={password}/>
+                        <InputFields Info ={{title: "Enter matching Password",id: "inputField=5", type: 4}}/>
                         <Dist/>
                         <div className='flexbox-1' id='topSpace'>
                         <button type='submit' disabled={invalid}>Submit</button>
@@ -135,6 +155,28 @@ const dissclamer =
                 </div>
             </div>
 
+function CorrectPas(props){
+
+    var listOfPasReq = ['centerText redColor','centerText redColor','centerText redColor','centerText redColor','centerText redColor']
+    
+    if(props.pas !== undefined){
+
+
+        return <div className='flexbox-1'>
+
+         <div id='pasBackground'>
+             <h4 className={listOfPasReq[0]} >Password must be longer than 8 charicters</h4>
+             <h4 className={listOfPasReq[1]}>Password contain at least one lowercase letter</h4>
+             <h4 className={listOfPasReq[2]}>Password contain at least one uppercase letter</h4>
+             <h4 className={listOfPasReq[3]}>Password contain at least one numerical charicter</h4>
+             <h4 className={listOfPasReq[4]}>Password contain at least one non-alphanumeric character</h4>
+             </div> 
+             </div>
+    }
+
+    return <div></div>;
+}
+
 function InputFields(props){
 
     const inputs = [<div className='formSpace'>
@@ -151,7 +193,11 @@ function InputFields(props){
                 </div>,
                     <div className='formSpace'>
                     <h3 className='centerText'>{props.Info.title}</h3>
-                    <Field name= {props.Info.id} type='hidden'  component={renderPasswords} validate={validateEmail}/>
+                    <Field name= {props.Info.id} type='hidden'  component={renderPasswords} validate={validateFirstPas}/>
+                </div>,
+                    <div className='formSpace'>
+                    <h3 className='centerText'>{props.Info.title}</h3>
+                    <Field name= {props.Info.id} type='hidden'  component={renderPasswords} validate={validateSecondPas}/>
                 </div>
                     ]
 

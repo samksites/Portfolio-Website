@@ -1,3 +1,6 @@
+$primary: #4cbe00;
+$secondary: #fa0707;
+
 #page{
     width: 100vw;
     
@@ -109,4 +112,19 @@
 
 #topSpace{
     margin-top: 40px;
+}
+
+#pasBackground{
+    width: 500px;
+    height: 250px;
+    border-radius: 10px;
+    background-color: aquamarine;
+}
+
+.greenColor{
+    color: $primary;
+}
+
+.redColor{
+    color: $secondary;
 }
