@@ -6,6 +6,7 @@ import Collapsible from 'react-collapsible';
 
 
 var password = '';
+var timeouts = [];
 
 const Input = ({errorMessage, ...props}) => (
     <div className='input-text flexbox-1 flexDirection'>
@@ -113,6 +114,7 @@ const FinalForm = () => (
                         <InputFields Info ={{title: "User name",id: "inputField=3", type: 1}}/>
                         <InputFields Info ={{title: "Enter Password",id: "inputField=4", type: 3}}/>
                         <CorrectPas pas={password}/>
+                        {temp()};
                         <InputFields Info ={{title: "Enter matching Password",id: "inputField=5", type: 4}}/>
                         <Dist/>
                         <div className='flexbox-1' id='topSpace'>
@@ -157,25 +159,39 @@ const dissclamer =
 
 function CorrectPas(props){
 
-    var listOfPasReq = ['centerText redColor','centerText redColor','centerText redColor','centerText redColor','centerText redColor']
+    var listOfPasReq = ['centerText redColor notVisable','centerText redColor notVisable','centerText redColor notVisable','centerText redColor notVisable','centerText redColor notVisable']
     
     if(props.pas !== undefined){
-
-
         return <div className='flexbox-1'>
 
          <div id='pasBackground'>
-             <h4 className={listOfPasReq[0]} >Password must be longer than 8 charicters</h4>
-             <h4 className={listOfPasReq[1]}>Password contain at least one lowercase letter</h4>
-             <h4 className={listOfPasReq[2]}>Password contain at least one uppercase letter</h4>
-             <h4 className={listOfPasReq[3]}>Password contain at least one numerical charicter</h4>
-             <h4 className={listOfPasReq[4]}>Password contain at least one non-alphanumeric character</h4>
+             <h4 className={listOfPasReq[0]} id="0" >Password must be longer than 8 charicters</h4>
+             <h4 className={listOfPasReq[1]} id="1">Password contain at least one lowercase letter</h4>
+             <h4 className={listOfPasReq[2]} id="2">Password contain at least one uppercase letter</h4>
+             <h4 className={listOfPasReq[3]} id="3">Password contain at least one numerical charicter</h4>
+             <h4 className={listOfPasReq[4]} id="4">Password contain at least one non-alphanumeric character</h4>
              </div> 
              </div>
     }
 
     return <div></div>;
 }
+
+function temp(){
+    
+    if(password !== undefined && password.length > 0){
+        
+        for(let i = 0; i < 5; i++){
+        timeouts.push(setTimeout(() => {  try{ document.getElementById(String(i)).classList.add("materilize");} catch(error){}; }, 300 + (i * 400)));
+        }
+    } else{
+        for (var i=0; i<timeouts.length; i++) {
+            clearTimeout(timeouts[i]);
+          }
+        timeouts = [];
+    }
+}
+
 
 function InputFields(props){
 

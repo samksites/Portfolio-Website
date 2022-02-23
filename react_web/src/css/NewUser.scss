@@ -116,9 +116,20 @@ $secondary: #fa0707;
 
 #pasBackground{
     width: 500px;
-    height: 250px;
+    height: 230px;
     border-radius: 10px;
-    background-color: aquamarine;
+    background-color: rgb(49, 49, 49);
+    animation-name: expand;
+    animation-duration: 3.5s;
+}
+
+@keyframes expand {
+    from {height: 0px;}
+    to {height: 230px;}
+  }
+
+.notVisable{
+    visibility: hidden;
 }
 
 .greenColor{
@@ -128,3 +139,22 @@ $secondary: #fa0707;
 .redColor{
     color: $secondary;
 }
+
+
+.materilize{
+    animation: 0.5s fadeIn;
+    animation-fill-mode: forwards;
+    
+    visibility: hidden;
+}
+
+@keyframes fadeIn {
+    99% {
+      visibility: hidden;
+    }
+    100% {
+      visibility: visible;
+    }
+  }
+
+
