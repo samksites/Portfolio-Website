@@ -8,10 +8,14 @@ const initialState = {
     
     // if the user is loged in or not allows users to acceses other items of the page
     canLogIn: false,
+
+    thePassword: undefined,
 };
 
 // reducer for changing state
 function reducer(state = initialState, action){
+
+    
     switch (action.type) {
         // changes the state of what login page looks like
         case Action.loginPage:
@@ -24,6 +28,13 @@ function reducer(state = initialState, action){
             return{
                 ...state,
                 canLogIn: action.payload
+            }
+
+        case Action.newPas:
+            
+            return{
+                ...state,
+                passthePasswordword: action.payload
             }
             default:
                 return state;
