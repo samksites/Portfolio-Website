@@ -6,6 +6,7 @@ import Collapsible from 'react-collapsible';
 import {useSelector, useDispatch} from 'react-redux';
 import {passWord} from '../action';
 
+var age = false;
 var varriablePassword = '';
 var timeouts = [];
 var listOfPasReq = ['centerText redColor notVisable','centerText redColor notVisable','centerText redColor notVisable','centerText redColor notVisable','centerText redColor notVisable'];
@@ -38,6 +39,12 @@ const validateName = name =>{
     }
 
     return undefined;
+}
+
+const validateRadio = sex =>{
+    if(!sex){
+        return 1;
+    }
 }
 
 const validateFirstPas = firstPassword =>{
@@ -112,15 +119,15 @@ function FinalForm(props){
                 <div className='personalInfo'>
                     <h2 id='head'>Please enter your user infromation</h2>
                     <form className='forms' onSubmit={handleSubmit}>
-                        <InputFields Info ={{title: "First Name",id: "inputField=1", type: 0}}/>
-                        <RadioBoxes val = {{list:[{name: "Male"},{name: "Female"},{name: "Other"}],title:"Enter your sex" }}/>
-                        <RadioBoxes val = {{list:[{name: "18-24"},{name: "25-36"},{name: "37-50"},{name: "50-70"},,{name: "71+"}], title:"Enger your age"}}/>
-                        <InputFields Info ={{title: "Email",id: "inputField=2", type: 2}}/>
-                        <InputFields Info ={{title: "User name",id: "inputField=3", type: 1}}/>
-                        <InputFields Info ={{title: "Enter Password",id: "inputField=4", type: 3}}/>
+                        <InputFields Info ={{title: "First Name",id: "inputField1", type: 0}}/>
+                        <RadioBoxes val = {{ catgory:"sex", list:[{name: "Male"},{name: "Female"},{name: "Other"}],title:"Enter your sex" }}/>
+                        <RadioBoxes val = {{catgory:"age", list:[{name: "18-24"},{name: "25-36"},{name: "37-50"},{name: "50-70"},,{name: "71+"}], title:"Enger your age"}}/>
+                        <InputFields Info ={{title: "Email",id: "inputField2", type: 2}}/>
+                        <InputFields Info ={{title: "User name",id: "inputField3", type: 1}}/>
+                        <InputFields Info ={{title: "Enter Password",id: "inputField4", type: 3}}/>
                         <CorrectPas pas={varriablePassword}/>
                         {temp()};
-                        <InputFields Info ={{title: "Enter matching Password",id: "inputField=5", type: 4}}/>
+                        <InputFields Info ={{title: "Enter matching Password",id: "inputField5", type: 4}}/>
                         <Dist/>
                         <div className='flexbox-1' id='topSpace'>
                         <button type='submit' disabled={invalid}>Submit</button>
@@ -173,20 +180,20 @@ function CorrectPas(props) {
         var non = /[^a-zA-Z\d\s:]/g;
         if(props.pas.length > 8){
             
-            listOfPasReq[0] = 'centerText greenColor'
+            listOfPasReq[0] = 'centerText greenColor notVisable'
         } else{
             listOfPasReq[0] = 'centerText redColor notVisable'
         }
 
         if(lowercase.test(props.pas)){
-            listOfPasReq[1] = 'centerText greenColor'
+            listOfPasReq[1] = 'centerText greenColor notVisable'
         } else{
             listOfPasReq[1] = 'centerText redColor notVisable'
         }
 
         if(uppercase.test(props.pas)){
             
-            listOfPasReq[2] = 'centerText greenColor'
+            listOfPasReq[2] = 'centerText greenColor notVisable'
         } else{
             listOfPasReq[2] = 'centerText redColor notVisable'
         }
@@ -275,11 +282,11 @@ function RadioBoxes(props){
     <div className='spread'>
         <label>
             <Field
-            name="temp"
+            name={props.val.catgory}
             component="input"
             type="radio"
             value={values.name}
-            
+            validate={validateRadio}
             />
         {' '}
         {values.name}
