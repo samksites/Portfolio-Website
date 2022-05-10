@@ -1,11 +1,14 @@
 
+import "./pInfo/pInfo.css"
+const written = require("./assets/description.json");
+
+const TextBox = (props) => {
 
 
-const textBox = () => {
-
-
-    return (1);
+    return (
+        <div className="textBox">{written.ch1}</div>
+    );
 }
 
 
-export default textBox;
+export default TextBox; 

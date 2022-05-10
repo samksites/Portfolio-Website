@@ -50,7 +50,8 @@ const PInfoPage = () => {
             <ParallaxLayer offset={4.15}>
                 <h2 className='chapters'>Chapter &#8544;&#8544;<br></br>Sports</h2>
             </ParallaxLayer>
-            <ParallaxLayer offset={4.38}  factor={1} sticky={{start:4.38, end:6}} style={{backgroundImage: `url(${sports})`, backgroundSize: 'cover'}}>
+            <ParallaxLayer offset={4.38} speed={2} factor={1} sticky={{start:4.38, end:6}} style={{backgroundImage: `url(${sports})`, backgroundSize: 'cover'}}>
+                <TextBox />
             </ParallaxLayer>
             <ParallaxLayer offset={7}>
             <div id='ch1' className='flexbox'> </div>
