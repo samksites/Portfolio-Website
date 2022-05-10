@@ -1,0 +1,33 @@
+#ch1{
+    width: 100vw;
+    height: 350px;
+    background-color: antiquewhite;
+}
+
+.chapters{
+    color: black;
+    font-size: x-large;
+}
+
+.flexbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.test{
+    height: 20px;
+}
+
+.yearsTitle{
+    z-index:-1;
+    width: 200px;
+    height: 100px;
+    background-color: aqua;
+}
+
+#portrait{
+    z-index:-1;
+    border: solid white 6px;
+    object-fit: cover;
+}

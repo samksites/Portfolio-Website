@@ -1,0 +1,87 @@
+
+/** Fonts import **/
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:200');
+
+
+
+body{
+    background: #1D1F20;
+    font-family: 'Raleway';
+    margin: 0;
+    padding: 0;
+}
+
+
+h1 {
+    text-align: center;
+    font-size: 60px;
+    color: white;
+  }
+
+h2{
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    font-family: 'Raleway';
+}
+
+.background-color{
+    background: #1D1F20;
+}
+
+.centerText{
+    text-align: center;
+}
+
+.flex{
+    display: flex;
+}
+
+.flexBoxColumn{
+    flex-direction: column;
+}
+
+.flexBoxCenter{
+    justify-content: center;
+    align-items: center;
+}
+
+.flexbox-1{
+    display: flex;
+    justify-content: center;
+}
+
+.flexbox-2{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.flexdirection-1{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.white-txt{
+
+    color: white;
+}
+
+
+.buttons{
+    background-color: #c4c4c427;
+
+}
+
+/** Cursor control **/
+
+.pointer:hover{
+    cursor: pointer;
+}
+
+
+
+
+
