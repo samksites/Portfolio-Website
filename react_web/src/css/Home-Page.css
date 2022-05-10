@@ -120,8 +120,26 @@
   to {top: 0px;}
 }
 
-.home{
+.homePageNavButtons{
   position:relative;
+  margin-bottom: 30px;
+}
+
+.loginLogout{
+  width: 200px;
+  height: 50px;
+  margin-top: 30px;
+  border-radius: 10px;
+  border: none;
+  background-color: #2f96ca;
+}
+
+.loginLogout:hover{
+  cursor: pointer;
+}
+
+#login{
+  background-color: #99007f;
 }
 
 

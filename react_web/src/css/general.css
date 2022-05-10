@@ -34,6 +34,19 @@ h2{
     text-align: center;
 }
 
+.flex{
+    display: flex;
+}
+
+.flexBoxColumn{
+    flex-direction: column;
+}
+
+.flexBoxCenter{
+    justify-content: center;
+    align-items: center;
+}
+
 .flexbox-1{
     display: flex;
     justify-content: center;

@@ -7,7 +7,7 @@ const initialState = {
     login_page: {loginError:false, loginState:0},
     
     // if the user is loged in or not allows users to acceses other items of the page
-    canLogIn: false,
+    isLoggedIn: false,
 
     thePassword: undefined,
 };
@@ -27,7 +27,7 @@ function reducer(state = initialState, action){
         case Action.loginRequest:
             return{
                 ...state,
-                canLogIn: action.payload
+                isLoggedIn: action.payload
             }
 
         case Action.newPas:
