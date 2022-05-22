@@ -1,12 +1,23 @@
-#ch1{
-    width: 100vw;
-    height: 350px;
-    background-color: antiquewhite;
-}
+@import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap');
 
 .chapters{
+    height: auto;
+    width: 100vw;
+    background-color: rgb(82, 87, 161);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#top-Header{
+    margin-top: 20vh;
+}
+
+.headers{
     color: black;
     font-size: x-large;
+    font-family: 'Grape Nuts', cursive;
+    font-size: xxx-large;
 }
 
 .flexbox{
@@ -30,6 +41,7 @@
     z-index:-1;
     border: solid white 6px;
     object-fit: cover;
+    
 }
 
 .textBox{
